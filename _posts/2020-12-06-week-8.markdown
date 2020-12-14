@@ -1,0 +1,90 @@
+---
+layout: post
+title:  "Week 8: Implementing speech-to-text and text-to-speech functionality"
+date:   2020-12-06 12:00:00 +0000
+categories: blog
+author: Jeremy Lo Ying Ping
+---
+
+I had a productive week this week implementing the voice aspects of *AskBob*.
+
+## Implementing speech-to-text
+
+Using one of Mozilla's pretrained models for `DeepSpeech` and `pyaudio` to capture audio frames from the microphone, I [succeeded](https://github.com/UCL-COMP0016-2020-Team-39/AskBob/commit/ccbc359c60a3d6aa5b1bc3a65fdc6ac4d9652f26) in getting speech to be interpreted as text.
+
+The speech-to-text parts of the `askbob.audio` module are the following:
+- `askbob.audio.listener.UtteranceService`: this takes audio input from the microphone (or a .wav file) and generates complete utterances for the `Transcriber` using voice activity detection
+- `askbob.audio.transcriber.Transcriber`: this takes complete utterances and transcribes them using the Mozilla's pretrained English DeepSpeech model and scorer.
+
+I found Mozilla's [DeepSpeech examples repository](https://github.com/mozilla/DeepSpeech-examples/tree/r0.9/mic_vad_streaming) to be an invaluable resource for understanding how to use `DeepSpeech` within a project. Particularly, the example code for microphone VAD streaming served as a useful guide for my own implementation (with many modifications).
+
+Resampling audio frames down from, say, 44100Hz, down to 16000Hz introduces some noise to the signal. I overcame this by ensuring that audio was being recorded from input devices at 16000Hz.
+
+Additionally, given the DeepSpeech pretrained model was trained on relatively clean audio samples (with a slight bias towards US male accented English due to the Common Voice dataset used), there were still several errors in transcription even after alleviating the issue of resampling noise (not least when it came to understanding my own Lancashire accent from Northern England!).
+
+I managed to clean up the audio signal further by applying a [bandpass Butterworth filter](https://github.com/UCL-COMP0016-2020-Team-39/AskBob/commit/9cd8490e17d9ef639979c5aa0c7e10671ba70c66) to the audio signal. I experimented with different lowpass and highpass frequencies, as well as different Butterworth filter orders. From my tests, I eventually settled on using a [4th order](https://github.com/UCL-COMP0016-2020-Team-39/AskBob/commit/95ad33031af2c1e252280e645c9dce90ef8a0aba) bandpass Butterworth filter with a lowpass frequency of 65Hz and a highpass frequency of 4000Hz.
+
+{% highlight python %}
+
+class UtteranceService:
+
+    # ...
+
+    def _init_filter(self, lowpass_frequency, highpass_frequency):
+        nyquist_frequency = 0.5 * self.sample_rate
+        self.b, self.a = scipy.signal.filter_design.butter(4, [
+            lowpass_frequency / nyquist_frequency,
+            highpass_frequency / nyquist_frequency
+        ], btype='bandpass')
+        self.zi = scipy.signal.signaltools.lfilter_zi(self.b, self.a)
+
+    def _filter(self, data):
+        data16 = np.frombuffer(data, dtype=np.int16)
+
+        filtered, self.zi = scipy.signal.signaltools.lfilter(
+            self.b, self.a, data16, axis=0, zi=self.zi)
+
+        return np.array(filtered, dtype=np.int16).tobytes()
+
+    # ...
+
+{% endhighlight %}
+
+After examining my own voice using a frequency spectrum analyser in Ableton Live (a digital audio workstation), I determined that for my own voice and the voice clips I analysed at least, the majority of the sonic information should be there. Frequencies in the 6000Hz range that were cut off, after isolating them, seem to be upper harmonics, so the model is likely to understand speech without them and indeed, this is what I have seen. With these changes, I noticed a slight improvement in speech comprehension!
+
+## Implementing text-to-speech
+
+I created an `askbob.audio.speaker.SpeechService` class to encapsulate the logic required to initialise `pyttsx3` and then use it to output whatever text is passed into the `SpeechService`.
+
+Windows users may find that the `portaudio` binary required by `pyttsx3` is missing. This might have to be compiled from source and then installed using `pip`.
+
+**Note**: Christoph Gohlke maintains *unofficial* Windows binaries for Python extension packages, including for [PyAudio](https://www.lfd.uci.edu/~gohlke/pythonlibs/#pyaudio), which works for me, although it is most likely better to compile it from source! When it comes to installing *AskBob* on Linux platforms (such as when we deploy to the Raspberry Pi), it is much easier to install `portaudio` via the standard package manager channels.
+
+## Managing configuration
+
+With the significant growth in command-line parameters required for the application to run, I decided to allow a configuration .ini file to be passed in as a single command-line argument instead to specify the model, voice activity detection aggressiveness (how zealously it attempts to pick out speech from the audio input signal) and text-to-speech voice model.
+
+For example, on my Windows setup, I have been using the following config.ini file:
+
+{% highlight ini %}
+[DEFAULT]
+
+[Listener]
+model = data\deepspeech-0.9.1-models.pbmm
+scorer = data\deepspeech-0.9.1-models.scorer
+aggressiveness = 1
+
+[Speaker]
+voice_id = HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Speech\Voices\Tokens\TTS_MS_EN-GB_HAZEL_11.0
+
+{% endhighlight %}
+
+The *AskBob* app can then be more easily run with the following command:
+
+```bash
+python -m askbob -c config.ini
+```
+
+## Next steps
+
+With speech-to-text and text-to-speech functional, the big engineering challenge now to find a nice, easily implementable solution for matching user requests to registered actions.

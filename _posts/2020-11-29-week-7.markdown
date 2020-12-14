@@ -53,6 +53,12 @@ We briefly considered Java, but it seems that the DeepSpeech binding is rather f
 
 Raspberry Pis are relatively inexpensive low-power devices that can be easily deployed anywhere the end-user wishes. Adding a speaker and microphone, it should be possible to use a Raspberry Pi to run the *AskBob* application. Intel NUCs with low-power Atom processors should also be able to run the *AskBob* application.
 
+### Docker and containerisation
+
+One issue we came across is that containers are fairly isolated from their outside environments, so it would be difficult to completely containerise the *AskBob* application, as, especially on Windows, it would be difficult to forward microphone input into the container.
+
+We should explore using containers should solution become apparent, otherwise, we will have to restrict our use of Docker containers to developing the configuration web-app to be used by voice assistant administrators to customise *AskBob*.
+
 ## Next steps
 
 From here, we're looking to start development on a prototype *AskBob* application.
