@@ -18,17 +18,18 @@
 # You can create any custom variable you would like, and they will be accessible
 # in the templates via {{ site.myvariable }}.
 
-title: AskBob (UCL COMP0016 2020 Team 39)
+title: AskBob - UCL COMP0016 Team 39
 
-description: >- # this means to ignore newlines until "baseurl:"
-  AskBob is an easily customisable, completely federated and rapidly deployable voice assistant
+description: >-
+  AskBob is an easily customisable, completely federated and rapidly deployable voice assistant <br>
   operable on low-power devices with limited to no internet access.
 baseurl: "" # the subpath of your site, e.g. /blog
 url: "https://ucl-comp0016-2020-team-39.github.io" # the base hostname & protocol for your site, e.g. http://example.com
 github_username: UCL-COMP0016-2020-Team-39
+repository_url: https://github.com/UCL-COMP0016-2020-Team-39/AskBob
 
 # Build settings
-theme: minima
+theme: jekyll-theme-cayman
 plugins:
   - jekyll-feed
 # Exclude from processing.
