@@ -26,7 +26,9 @@ description: >-
 baseurl: "" # the subpath of your site, e.g. /blog
 url: "https://ucl-comp0016-2020-team-39.github.io" # the base hostname & protocol for your site, e.g. http://example.com
 github_username: UCL-COMP0016-2020-Team-39
-repository_url: https://github.com/UCL-COMP0016-2020-Team-39/AskBob
+
+github:
+  repository_url: https://github.com/UCL-COMP0016-2020-Team-39/AskBob
 
 # Build settings
 theme: jekyll-theme-cayman

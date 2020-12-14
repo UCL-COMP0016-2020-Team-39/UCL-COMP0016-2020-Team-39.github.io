@@ -1,0 +1,36 @@
+---
+layout: post
+title:  "Week 1: Introduction & meeting our team"
+date:   2020-10-18 12:00:00 +0000
+categories: blog
+author: Jeremy Lo Ying Ping
+---
+
+Welcome to our development blog!
+
+We are team 39 (2020) and in the coming weeks, we will be detailing our progress in completing our COMP0016 group project ("AskBob - designing a library of open-source, federated and localised Alexa-like devices") in partnership with IBM and the NHS here.
+
+## Meeting the team
+
+When we received our brief on Thursday, we immediately made contact with each other and created a new team on Microsoft Teams. We then held a team meeting to introduce ourselves to each other and start discussing the project.
+
+The members of the team at the outset are the following:
+- Jeremy Lo Ying Ping ([jeremy.ping.19@ucl.ac.uk](mailto:jeremy.ping.19@ucl.ac.uk))
+- Felipe Jin Li ([felipe.jinli.19@ucl.ac.uk](mailto:felipe.jinli.19@ucl.ac.uk))
+- Zhuotai Yang ([zhuotai.yang.19@ucl.ac.uk](mailto:zhuotai.yang.19@ucl.ac.uk))
+
+We created fresh Trello and Miro setups to organise our project. We also contacted our clients requesting interviews with them to help us clarify the scope and requirements of our projecct.
+
+## The project brief
+
+The initial brief we received from our clients at IBM and in the NHS is the following:
+
+> We are looking for open locally buildable designs for open-source “in-house Alexa”-style development with Watson/deepspeech, which can operate on low power devices such as a Raspberry Pi.
+>
+> Several versions should be designed experimentally: one for care homes and for carers, interfacing voice into the carercare platform; one for children at home ("read a story to me"); one for retail ("how do I find chocolates in Tescos?"); and one for NHS environments ("how do I get to radiotherapy?").
+>
+>All versions should perform processing locally without internet access and an API should be published to allow for the easy injection of additional open-source "skills" by USB stick. Translated speech output in different languages should also be considered.
+
+## Next steps
+
+We will be looking to gather further details from our clients when they respond in order to draft a MoSCoW list of requirements. Once that has been completed, we will start examining our project's human-computer interaction considerations.
