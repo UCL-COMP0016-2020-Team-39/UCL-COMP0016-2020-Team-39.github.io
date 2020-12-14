@@ -1,0 +1,30 @@
+---
+layout: post
+title:  "Weeks 2-3: Gathering client requirements"
+date:   2020-11-01 12:00:00 +0000
+categories: blog
+author: Jeremy Lo Ying Ping
+---
+
+In these past two weeks, we had a meeting with one of our clients, Dr Dean Mohamedally. This was invaluable to us with respect to clarifying our project requirements and we were left with a much more precise notion of what the project entails.
+
+## Meeting notes (2020-10-30)
+
+We are to build an Alexa-style application that is:
+- completely federated (interpreting and processing all speech locally, potentially using `Mozilla/DeepSpeech`, connecting to the internet only for JSON requests to REST APIs with no personally identifiable information to ensure GDPR compliancy)
+- operable on low-power devices, e.g. laptops, Intel NUCs with atom processors, tablets, browsers - anything, anywhere!
+- rapidly deployable in places such as care homes, hospitals, GP clinics and so on
+
+Ideally, it would be configurable via a responsive web-app interfacing with a local database (or web API) that allows administrators to examine the local database and add new ‘skills’ to the voice assistant, including multilingual capabilities, which would be very much welcome.
+
+Additionally, all personal data should be stored locally within a database to be accessed by the different services supported by our voice assistant locally. We are free to use any database solution (e.g. MySQL/MariaDB, PostgreSQL, SQLite, etc), so long as we have a flat index of all the services and systems with which the voice assistant is interoperable (similar to Alexa-like skills) enablable by system administrators.
+
+Several different features based on open-source services ought to be supported, e.g. the ability to search for something, look up the weather, purchase something, read something out loud, etc. It is expected that the voice assistant will be able to connect to other devices over several different protocols, e.g. IFTTT in the home, any other in-home network with a centralised hub, Bluetooth (like Philips hue lightbulbs), etc.
+
+At UCL, a prototype ‘Captain’ device was invented eight years ago that would repurpose IoT traffic so to repurpose the IoT devices users already had for other uses. It is now called Azure Hub after being NDAed by Microsoft and allows administrators to manage IoT frameworks and the like.
+
+Clients with a connection to the health service would like our voice assistant to be interoperable with their existing Care Platform and other services, so we should try to make it easy to interface with external APIs.
+
+## Next steps
+
+We should start researching open-source technologies available to us that meet our clients' requirements that we could use to develop the voice assistant. As a part of that, we should compare different open-source speech analysis engines (not least for multilingual support).
