@@ -1,0 +1,17 @@
+---
+layout: post
+title:  "Week 6: Starting research & development"
+date:   2020-11-22 12:00:00 +0000
+categories: blog
+author: Jeremy Lo Ying Ping
+---
+
+This week, we started to think about the development process for _AskBob_.
+
+I met up with our (very friendly) assigned teaching assistant, Ahmed Shahin, who has given guidance on how to proceed from here.
+
+## Next steps
+
+We will continue researching relevant open-source libraries and tools that we could possibly use in order to commence development as quickly as possible with the aim of having a working prototype by the end of the year. I have created an _AskBob_ GitHub repository to get started on the voice assistant component itself as soon as research on speech-to-text engines, text-to-speech libraries and other tools is sufficient to garner a decent enough understanding to start implementing _AskBob_.
+
+We will also research of both existing solutions that are similar to our project (customisable voice assistants, healthcare voice assistants, etc) to understand existing solutions.

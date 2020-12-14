@@ -14,7 +14,7 @@ This is our development blog, where we'll be documenting our progress as we rese
 - Felipe Jin Li ([felipe.jinli.19@ucl.ac.uk](mailto:felipe.jinli.19@ucl.ac.uk))
 
 # MoSCoW list
-The following is a list of 'must have', 'should have', 'could have' and 'would have' requirements for AskBob:
+The following is a list of 'must have', 'should have', 'could have' and 'would have' requirements for *AskBob*:
 ## Must have
 - **completely federated**: the interpretation and processing of all speech must occur locally
 - **operable on low-power devices** (e.g. laptops, Intel NUCs with atom processors, tablets, browsers - anything anywhere!) with little to no internet access (where there is internet access, this may only be used for sending JSON requests to RESTful APIs containing no personally identifiable information to ensure GDPR compliancy)

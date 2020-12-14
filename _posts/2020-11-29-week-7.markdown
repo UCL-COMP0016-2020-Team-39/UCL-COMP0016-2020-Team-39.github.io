@@ -1,0 +1,58 @@
+---
+layout: post
+title:  "Week 7: Completing voice research"
+date:   2020-11-29 12:00:00 +0000
+categories: blog
+author: Jeremy Lo Ying Ping
+---
+
+## Client meeting
+
+We started the week off with a useful client meeting with Dr Connor (NHS). He elaborated on some of the potential use-cases in medical settings that it would be nice for *AskBob* to support via customisation and configuration by health service administrators.
+
+Examples of such use-cases include the following:
+- hands-free medical information retrieval in emergency care settings be that in hospital or the community (where medical staff in full PPE may be unable to touch a device)
+- information and location aid (devices could be mounted around hospitals and provide directions to lost patients and their families, or other information that they may find useful as health service administrators see fit)
+- reliable medical information retrieval for patients and their families, pulling advice from a list of allowed sources
+- giving patients voice assistants to take home to ask questions, e.g. including hard-coded answers for dementia patients to questions such as 'where are my shoes?' and 'when do I usually see my daughter?'
+- social care settings for advice (and integration with existing platforms)
+
+Dr Connor was also interested in seeing how voice assistants could potentially be used to combat social isolation (via engagement in meaningful dialogue, however virtual), mental health education and cognitive behavioural therapy.
+
+We also discussed some of the technologies we were considering before agreeing on a final software stack later in the week.
+
+## Software stack & open-source technologies
+
+After much consideration and research, we have settled on using the following open-source technologies.
+
+### Mozilla DeepSpeech
+
+We intend to use DeepSpeech for the following reasons:
+- it supports voice activity detection (VAD)
+- it is known to work on low-power devices, including the Raspberry Pi
+- it has bindings for major programming languages, including Python
+- it is an open-source, active project
+- it uses Tensorflow internally (based off Cornell/Baidu research)
+- it processes all speech locally
+
+Other solutions we investigated, such as IBM Watson and Google Cloud STT automatic speech recognition, are much heavier and closed-source, and rely on remote processing of speech, which does not meet our requirements.
+
+### pyttsx3
+
+`pyttsx3` is a cross-platform open-source text-to-speech library in Python that works offline, so it should be sufficient for our purposes.
+
+We researched `Mozilla\TTS` and strongly considered it; however, there is no British English voice widely available and it has a considerably more complicated setup process and more difficult-to-use API. It is still under active development, so while it may produce more realistic speech with the right configuration, `pyttsx3` is more in tune with our project requirements for now. Ideally, *AskBob* will be written as several components, so this could be modified easily in the future, should it be necessary.
+
+### Python 3
+
+Python is a portable programming language deployable even on low-power ARM devices, such as the Raspberry Pi.
+
+We briefly considered Java, but it seems that the DeepSpeech binding is rather for Android, whereas the Python binding seems to work across a wider array of platforms from the Mozilla\DeepSpeech documentation.
+
+### Hardware 'smart speaker' devices
+
+Raspberry Pis are relatively inexpensive low-power devices that can be easily deployed anywhere the end-user wishes. Adding a speaker and microphone, it should be possible to use a Raspberry Pi to run the *AskBob* application. Intel NUCs with low-power Atom processors should also be able to run the *AskBob* application.
+
+## Next steps
+
+From here, we're looking to start development on a prototype *AskBob* application.

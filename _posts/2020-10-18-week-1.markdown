@@ -19,7 +19,7 @@ The members of the team at the outset are the following:
 - Felipe Jin Li ([felipe.jinli.19@ucl.ac.uk](mailto:felipe.jinli.19@ucl.ac.uk))
 - Zhuotai Yang ([zhuotai.yang.19@ucl.ac.uk](mailto:zhuotai.yang.19@ucl.ac.uk))
 
-We created fresh Trello and Miro setups to organise our project. We also contacted our clients requesting interviews with them to help us clarify the scope and requirements of our projecct.
+I created fresh Trello and Miro setups to organise our project, as well as a GitHub organisation for the project. We also contacted our clients requesting interviews with them to help us clarify the scope and requirements of our projecct.
 
 ## The project brief
 
