@@ -1,0 +1,48 @@
+---
+layout: post
+title:  "Week 9: Researching Natural Language Processing"
+date:   2020-12-13 12:00:00 +0000
+categories: blog
+author: Jeremy Lo Ying Ping
+---
+
+This week, I started researching different strategies for matching users' spoken requests to modular actions registered with the voice assistant at runtime.
+
+## Architecture design idea I - an offline search engine library
+
+A potentially naïve but relatively simple-to-implement option would be to employ the use of a search engine library. Metadata could provide useful trigger phrases and descriptions for each supported voice assistant action, which could then form a series of documents. These documents could be processed by the search engine library and used to find the best match between a user's query and the actions supported by the voice assistant.
+
+An example of such a library is [Whoosh](https://whoosh.readthedocs.io/en/latest/intro.html): a reasonably fast, pure-Python search engine library that provides for the searching of registered documents based on any number of search criteria.
+
+On the other hand, some pitfalls immediately become apparent. For example, if someone wanted to know the weather in Manchester tomorrow, they might ask the following question:
+> **User**:    What's the weather going to be in Manchester tomorrow?
+>
+> **AskBob**:  It's going to rain, because of course it will - it's Manchester!
+
+While the search engine library might be able to match the question to a `WeatherAction` of some sorts, it could struggle to pick out the geographical location, `Manchester`, without additional parsing. Passing the whole of the transcribed utterance to the `WeatherAction` would only kick the can down the call-chain, as then the `WeatherAction` would have to try and make sense of the user's query too!
+
+We would then be in a rather awkward situation where we might have to hardcode an action for each locality for which querying tomorrow's weather is supported.
+
+Perhaps, it may be necessary to explore more advanced methods for examining the structure of natural language user queries.
+
+## Architecture design idea II - natural language processing (NLP)
+
+This conundrum can be decomposed into the following engineering challenges:
+- **Problem I**: correctly identifying and extracting the precise intent from a user's query
+- **Problem II**: correctly matching their intent to a registered action
+
+Solving the first problem gives rise to an opportunity to explore using a natural language processing library, such as [spaCy](https://spacy.io/).
+
+`SpaCy` is fast and has support for a wide number of languages (61+ languages in total with 46 statistical models for 16 languages), which would allow *AskBob* to be extended were `DeepSpeech` models in those languages to be trained and the necessary TTS voices installed. It also supports part-of-speech tagging, which would be particularly useful for identifying a user's intent.
+
+The `spaCy` website includes pretrained models for English at three different sizes (small, medium and large) which would be make it easier to deploy to low-power devices, such as the Raspberry Pi, which may face storage capacity constraints.
+
+Additionally, unlike alternatives, such as Microsoft LUIS and IBM Watson, `spaCy` is available completely offline, which meets our project requirements.
+
+## Next steps
+
+From here, it seems that our next steps should be continue our research into how `spaCy` could be used to extract intents from user queries while experimenting with code samples.
+
+## Team changes
+
+After a notable period of absence over the course of the previous few weeks (since ~week 4), it was confirmed that Zhuotai Yang has left the team, leaving myself and Felipe.
