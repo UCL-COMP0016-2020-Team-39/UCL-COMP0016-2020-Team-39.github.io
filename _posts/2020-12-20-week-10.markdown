@@ -1,0 +1,31 @@
+---
+layout: post
+title:  "Week 10: Investigating Rasa - a machine learning framework"
+date:   2020-12-20 12:00:00 +0000
+categories: blog
+author: Jeremy Lo Ying Ping
+---
+
+This week, I made some progress regarding the problem of matching users' spoken requests to the relevant responses.
+
+## Rasa - a machine learning framework
+
+When researching `SpaCy`, I looked into some of the projects that used it internally. One of those was [Rasa](https://rasa.com/), an open-source machine learning framework for automated text-based conversations.
+
+It has a natural language understanding (NLU) model that can be used to build conversational assistants, even with a fairly limited sample of training data. It seems relatively flexible, so it should be possible to integrate it within our existing `AskBob` code.
+
+`Rasa` is written in Python and allows us to use `SpaCy` components as a part of the NLU pipeline to take advantage of `SpaCy`'s powerful feature-set (including its entity extractor). It also means we can use it to build chatbots in any of the languages supported by `SpaCy`.
+
+`Rasa` also supports other 'connectors', such as Facebook Messenger and Slack in addition to a REST API, which could be useful if we ever wanted to integrate `AskBob` into other platforms.
+
+## Client meeting
+
+We also held a client meeting with Dean where we took stock of the term's progress and considered some of the things we might want to focus on once we have a prototype voice assistant, including the following:
+- testing `AskBob` on low-power devices, e.g. the Raspberry Pi
+- building plugins to integrate third-party APIs into `AskBob`
+- researching `Voiceflow` to either use it or build a similar intuitive interface to design voice commands
+- collaborating with another systems engineering team building a concierge app
+
+## Next steps
+
+Over the Christmas break, it would be useful to explore `Rasa`'s documentation and try out a few examples to learn more about how we could integrate it into our project in order to build a prototype voice assistant.

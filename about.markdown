@@ -12,6 +12,7 @@ This is our development blog, where we'll be documenting our progress as we rese
 
 - Jeremy Lo Ying Ping ([jeremy.ping.19@ucl.ac.uk](mailto:jeremy.ping.19@ucl.ac.uk))
 - Felipe Jin Li ([felipe.jinli.19@ucl.ac.uk](mailto:felipe.jinli.19@ucl.ac.uk))
+- Akhere Ihoeghinlan ([ak.ihoeghinlan.18@ucl.ac.uk](mailto:ak.ihoeghinlan.18@ucl.ac.uk))
 
 # MoSCoW list
 The following is a list of 'must have', 'should have', 'could have' and 'would have' requirements for *AskBob*:

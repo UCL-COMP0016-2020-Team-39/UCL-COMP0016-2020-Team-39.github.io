@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Week 9: Researching Natural Language Processing"
+title:  "Week 9: Researching natural language processing (NLP)"
 date:   2020-12-13 12:00:00 +0000
 categories: blog
 author: Jeremy Lo Ying Ping

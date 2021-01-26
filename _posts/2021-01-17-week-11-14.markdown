@@ -1,0 +1,58 @@
+---
+layout: post
+title:  "Weeks 11-14: Christmas break recap & elevator pitch"
+date:   2021-01-10 12:00:00 +0000
+categories: blog
+author: Jeremy Lo Ying Ping
+---
+
+There are some exciting developments to share with you in this blog post.
+
+## Prototype voice assistant & demonstration
+
+Over the Christmas break, I researched how to build conversational text-based assistants using `Rasa`, including using Rasa custom actions to execute Python code in response to a certain user intention.
+
+Whenever a user's spoken intention triggers a custom action, `Rasa` will send a REST request to a separate HTTP server to handle the custom action. This separation of concerns could be useful to use when building a plugin system for `AskBob`.
+
+I implemented a Rasa chatbot that can provided both fixed responses to certain queries, as well as use custom actions to use data from third-party APIs, such as the [OpenWeather](https://openweathermap.org/api) [current weather API](https://openweathermap.org/current) and the [icanhazdadjoke.com dad jokes API](https://icanhazdadjoke.com/api), for testing purposes.
+
+By default, the main `Rasa` instance itself is a Python application with several 'connectors', e.g. the command-line interface, the REST API, Facebook Messenger, Slack, etc. I used the REST API to create a `ResponseService` within the main `AskBob` code that relays transcribed speech to and receives a textual response from the separate `Rasa` instance running on my computer.
+
+This allowed me to integrate the three main components of `AskBob`: speech transcription using `DeepSpeech`; natural language understanding using `Rasa`; and speech synthesis using `pyttsx3`.
+
+An example conversation with the `AskBob` prototype is shown below:
+
+![Example Ask Bob conversation](/assets/images/ChristmasRecap/conversation.png)
+
+We showed this prototype to Yun Fu as a part of our team's Systems Engineering prototype demo on Wednesday.
+
+Our next goal on the voice assistant side of things is to find a way to generate the YAML files necessary to train `Rasa`'s NLU model from a configuration file exported by the `AskBob` configuration tool (which takes the form of a web app). Then, we will be in a position to write a setup script that can take an `AskBob` configuration package, customised by an administrative user in the web app, and hence automatically train a `Rasa` NLU model into which  `AskBob` can hook.
+
+## Team changes
+
+This week, we were also joined by a new team member! It's an absolute pleasure to welcome Ak to the team and we look forward to working with him. He will initially apply himself to helping the team make progress with the configuration web app.
+
+This week, he started fleshing out our `React` configuration web app for `AskBob` and he will have more to say on ths matter in next week's blog post!
+
+## Elevator pitch
+
+We also prepared a two-minute elevator pitch to deliver to our peers in the computer science department, module leaders, clients and other guests to show off our project and our current progress.
+
+![Elevator Pitch - Slide 1](/assets/images/ChristmasRecap/Slide1.PNG)
+
+![Elevator Pitch - Slide 2](/assets/images/ChristmasRecap/Slide2.PNG)
+
+![Elevator Pitch - Slide 3](/assets/images/ChristmasRecap/Slide3.PNG)
+
+Getting a chance to present our work in front of so many people was a great experience and brought us together as a newly reconstituted team of three.
+
+## Integration with other IBM FISE system engineering teams' projects
+
+In a client meeting with Dean this week, the prospect of integrating `AskBob` with the applications of two other IBM Franklin Immersive Social Engagement (FISE) systems engineering teams was raised.
+
+1. A video conferencing web app designed to bring people together, particularly older members of society; and
+2. the voice-enabled concierge Android app mentioned in a previous blog post.
+
+I had caught up with Calin from the concierge team over the Christmas break and thankfully, we are both using Python for our natural language processing capabilities. Indeed, they are also using `SpaCy` for entity extraction, so hopefully over the coming weeks, we will be able to integrate the concierge actions into `AskBob`.
+
+We have been focusing on making `AskBob` work for low-power devices with limited internet access; however, the video conferencing application being developed by the other team is fully online and already integrated with IBM Watson. Integrating Ask Bob into the video conferencing web app will therefore require some careful consideration and potentially exposing some additional APIs.
