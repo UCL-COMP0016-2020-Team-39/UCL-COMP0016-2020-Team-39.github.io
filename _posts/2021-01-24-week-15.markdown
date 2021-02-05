@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Weeks 15: Configuration web app progress"
-date:   2021-01-10 12:00:00 +0000
+date:   2021-01-24 12:00:00 +0000
 categories: blog
 author:
   - Akhere Ihoeghinlan

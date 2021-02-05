@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Weeks 11-14: Christmas break recap & elevator pitch"
-date:   2021-01-10 12:00:00 +0000
+date:   2021-01-17 12:00:00 +0000
 categories: blog
 author: Jeremy Lo Ying Ping
 ---

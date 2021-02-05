@@ -11,7 +11,6 @@ This is our development blog, where we'll be documenting our progress as we rese
 # Team members
 
 - Jeremy Lo Ying Ping ([jeremy.ping.19@ucl.ac.uk](mailto:jeremy.ping.19@ucl.ac.uk))
-- Felipe Jin Li ([felipe.jinli.19@ucl.ac.uk](mailto:felipe.jinli.19@ucl.ac.uk))
 - Akhere Ihoeghinlan ([ak.ihoeghinlan.18@ucl.ac.uk](mailto:ak.ihoeghinlan.18@ucl.ac.uk))
 
 # MoSCoW list
