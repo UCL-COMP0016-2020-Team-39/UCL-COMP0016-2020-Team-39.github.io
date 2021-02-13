@@ -17,7 +17,7 @@ This is our development blog, where we'll be documenting our progress as we rese
 The following is a list of 'must have', 'should have', 'could have' and 'would have' requirements for *AskBob*:
 ## Must have
 - **completely federated**: the interpretation and processing of all speech must occur locally
-- **operable on low-power devices** (e.g. laptops, Intel NUCs with atom processors, tablets, browsers - anything anywhere!) with little to no internet access (where there is internet access, this may only be used for sending JSON requests to RESTful APIs containing no personally identifiable information to ensure GDPR compliancy)
+- **operable on low-power devices** (e.g. laptops, Intel NUCs with atom processors, tablets, browsers -- anything anywhere!) with little to no internet access (where there is internet access, this may only be used for sending JSON requests to RESTful APIs containing no personally identifiable information to ensure GDPR compliancy)
 - **rapidly deployable** in places such as care homes, hospitals, GP clinics, etc
 - **local storage of all personal data**: a local database storing all personal data will be processed locally by the different services supported by our voice assistant
 - **a flatfile index of all services** with which the voice assistant is interoperable (similar to Alexa skills) and which are easily enablable by system administrators

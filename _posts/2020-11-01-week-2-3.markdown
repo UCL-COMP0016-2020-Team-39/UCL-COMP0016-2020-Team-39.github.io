@@ -12,7 +12,7 @@ In these past two weeks, we had a meeting with one of our clients, Dr Dean Moham
 
 We are to build an Alexa-style application that is:
 - completely federated (interpreting and processing all speech locally, potentially using `Mozilla/DeepSpeech`, connecting to the internet only for JSON requests to REST APIs with no personally identifiable information to ensure GDPR compliancy)
-- operable on low-power devices, e.g. laptops, Intel NUCs with atom processors, tablets, browsers - anything, anywhere!
+- operable on low-power devices, e.g. laptops, Intel NUCs with atom processors, tablets, browsers -- anything, anywhere!
 - rapidly deployable in places such as care homes, hospitals, GP clinics and so on
 
 Ideally, it would be configurable via a responsive web-app interfacing with a local database (or web API) that allows administrators to examine the local database and add new ‘skills’ to the voice assistant, including multilingual capabilities, which would be very much welcome.

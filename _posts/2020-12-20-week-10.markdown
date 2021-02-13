@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Week 10: Investigating Rasa - a machine learning framework"
+title:  "Week 10: Investigating Rasa -- a machine learning framework"
 date:   2020-12-20 12:00:00 +0000
 categories: blog
 author: Jeremy Lo Ying Ping
@@ -8,7 +8,7 @@ author: Jeremy Lo Ying Ping
 
 This week, I made some progress regarding the problem of matching users' spoken requests to the relevant responses.
 
-## Rasa - a machine learning framework
+## Rasa -- a machine learning framework
 
 When researching `SpaCy`, I looked into some of the projects that used it internally. One of those was [Rasa](https://rasa.com/), an open-source machine learning framework for automated text-based conversations.
 

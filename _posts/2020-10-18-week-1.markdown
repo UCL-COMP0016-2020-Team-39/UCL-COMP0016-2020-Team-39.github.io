@@ -8,7 +8,7 @@ author: Jeremy Lo Ying Ping
 
 Welcome to our development blog!
 
-We are team 39 (2020) and in the coming weeks, we will be detailing our progress in completing our COMP0016 group project ("AskBob - designing a library of open-source, federated and localised Alexa-like devices") in partnership with IBM and the NHS here.
+We are team 39 (2020) and in the coming weeks, we will be detailing our progress in completing our COMP0016 group project ("AskBob -- designing a library of open-source, federated and localised Alexa-like devices") in partnership with IBM and the NHS here.
 
 ## Meeting the team
 

@@ -8,7 +8,7 @@ author: Jeremy Lo Ying Ping
 
 This week, I started researching different strategies for matching users' spoken requests to modular actions registered with the voice assistant at runtime.
 
-## Architecture design idea I - an offline search engine library
+## Architecture design idea I -- an offline search engine library
 
 A potentially naïve but relatively simple-to-implement option would be to employ the use of a search engine library. Metadata could provide useful trigger phrases and descriptions for each supported voice assistant action, which could then form a series of documents. These documents could be processed by the search engine library and used to find the best match between a user's query and the actions supported by the voice assistant.
 
@@ -25,7 +25,7 @@ We would then be in a rather awkward situation where we might have to hardcode a
 
 Perhaps, it may be necessary to explore more advanced methods for examining the structure of natural language user queries.
 
-## Architecture design idea II - natural language processing (NLP)
+## Architecture design idea II -- natural language processing (NLP)
 
 This conundrum can be decomposed into the following engineering challenges:
 - **Problem I**: correctly identifying and extracting the precise intent from a user's query
