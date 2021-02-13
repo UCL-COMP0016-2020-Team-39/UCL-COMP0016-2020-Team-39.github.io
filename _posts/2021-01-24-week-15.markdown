@@ -12,7 +12,7 @@ This week, we made significant progress on our React configuration web app.
 
 ## Configuration web app and Redux
 
-We integrated `Redux` into our web app to allow users to generate a config file for `AskBob` with their customisations. The web app allows users to specify intents (questions or commands the user says), responses (Bob's replies to the user) and make skills (an intent paired with a sequence of responses), and then download a config file containing the data. This file will then be able to be used to configure the `AskBob` voice assistant.
+We integrated `Redux` into our web app to allow users to generate a config file for *AskBob* with their customisations. The web app allows users to specify intents (questions or commands the user says), responses (Bob's replies to the user) and make skills (an intent paired with a sequence of responses), and then download a config file containing the data. This file will then be able to be used to configure the *AskBob* voice assistant.
 
 When the user adds an intent, response or skill in the web app, the data is stored locally to allow users to leave and return to their configuration a later date. `Redux` is used for state management as the state has become quite complex (and may grow in complexity once forms are added) and `Redux` gives us the flexibility to scale our state even further.
 
@@ -22,10 +22,10 @@ The forms used to add data to the configuration file have validation checks to m
 
 ## Converting the configuration file into Rasa YAML configuration files
 
-On the voice assistant side, we wrote a Python script to convert a `config.json` file exported by the configuration web app into the series of files required by `Rasa` for training. This allows us to take exported configuration files, run the conversion script and then run `rasa train` in the command line to train a customised NLU model. This can then be launched by a `Rasa` server and immediately start processing transcribed spoken requests from `AskBob`.
+On the voice assistant side, we wrote a Python script to convert a `config.json` file exported by the configuration web app into the series of files required by `Rasa` for training. This allows us to take exported configuration files, run the conversion script and then run `rasa train` in the command line to train a customised NLU model. This can then be launched by a `Rasa` server and immediately start processing transcribed spoken requests from *AskBob*.
 
 ## Next steps
 
-One of our next steps is to change our forms to use a more user-friendly drag-and-drop interface. This will allow users to create intents, responses, and skills on the same page in a more intuitive manner. We aim to implement a Scratch-like block-based customisation interface to allow users to make more complex voice skills for `AskBob`.
+One of our next steps is to change our forms to use a more user-friendly drag-and-drop interface. This will allow users to create intents, responses, and skills on the same page in a more intuitive manner. We aim to implement a Scratch-like block-based customisation interface to allow users to make more complex voice skills for *AskBob*.
 
-We will also make a unified setup script for `AskBob` to automatically train a `Rasa` NLU model after converting a `config.json` file and lay the foundations for an `AskBob` plugin system.
+We will also make a unified setup script for *AskBob* to automatically train a `Rasa` NLU model after converting a `config.json` file and lay the foundations for an *AskBob* plugin system.

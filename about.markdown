@@ -20,7 +20,7 @@ The following is a list of 'must have', 'should have', 'could have' and 'would h
 - **operable on low-power devices** (e.g. laptops, Intel NUCs with atom processors, tablets, browsers - anything anywhere!) with little to no internet access (where there is internet access, this may only be used for sending JSON requests to RESTful APIs containing no personally identifiable information to ensure GDPR compliancy)
 - **rapidly deployable** in places such as care homes, hospitals, GP clinics, etc
 - **local storage of all personal data**: a local database storing all personal data will be processed locally by the different services supported by our voice assistant
-- **a flatfile index of all services and services** with which the voice assistant is interoperable (similar to Alexa skills) and which are easily enablable by system administrators
+- **a flatfile index of all services** with which the voice assistant is interoperable (similar to Alexa skills) and which are easily enablable by system administrators
 
 ## Should have
 - **configurability via a responsive web-app** interfacing with the aforementioned local database (or perhaps a web API) that allows administrators to examine the local database and add new ‘skills’ to the voice assistant, including multilingual capabilities

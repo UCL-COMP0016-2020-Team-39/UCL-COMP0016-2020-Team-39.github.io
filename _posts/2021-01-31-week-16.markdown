@@ -1,0 +1,46 @@
+---
+layout: post
+title:  "Weeks 16: Training Rasa models from *AskBob* configurations"
+date:   2021-01-31 12:00:00 +0000
+categories: blog
+author:
+  - Jeremy Lo Ying Ping
+  - Akhere Ihoeghinlan
+---
+
+This week, we made additional progress with improving the customisability of *AskBob*.
+
+## Rasa model training from *AskBob* build-time configuration JSON files
+
+The Python script mentioned in last week's blog post to translate *AskBob* "skills definition" build-time JSON configuration files into the necessary YAML files required to train and configure `Rasa` has been developed into a setup utility accessible on the command line through `python -m askbob --setup config.json`. It now allows users to train and output a new `Rasa` model that is immediately available for Ask Bob to use when it is next launched.
+
+We also continued experimenting with the format of the JSON configuration files to ensure it is flexible enough for us to be able to add additional features in the future beyond those we have already implemented while resolving compatibility issues between the voice assistant setup utility and our configuration generator web app.
+
+## AskBob query responder exposure via a RESTful web API & FISE ecosystem integration
+
+*AskBob*'s query response logic has been exposed through a RESTful web API to enable other teams and developers to use *AskBob* as a service. If *AskBob* is run with the `-s` or `--serve` flags on the command line, then a `Sanic`-based Python web server replaces the speech-based interface. The host and port to which the new "*AskBob* server" binds is configurable within the runtime `config.ini` file.
+
+Besides a welcome on the root `/` path, the API has a single `HTTP` `POST` `/query` endpoint taking a `message` for the assistant to parse and respond to, as well as a `sender` (a unique identifier used to keep track of the conversation) sent using the `application/x-www-form-urlencoded` content type and returning a JSON response.
+
+If the request is successful, then the server will return the response as a sequence of messages:
+```json
+{
+  "messages": [
+    "Hello, world!",
+    "I'm Bob, how do you do?"
+  ]
+}
+```
+
+If an invalid request is given, then the server will return an error taking the following form:
+```json
+{
+  "error": "Error message."
+}
+```
+
+We also held another round of meetings with the other two IBM FISE teams this week to discuss our strategy for integrating our projects. The video conferencing group should be able now to host *AskBob* on their server and then access *AskBob* through their back end using the `/query` endpoint. They are already using IBM Watson for speech-to-text and text-to-speech, so should be able to send the transcribed speech directly to *AskBob* and use the JSON response to produce audible feedback for the end user.
+
+## Next steps
+
+Now that we have a unified setup utility for *AskBob*, we will look into developing a plugin system that will enable us to modularise assistant skills into separate packages loadable at build-time (the time `python -m askbob --setup config.json` is executed to retrain the `Rasa` model).
