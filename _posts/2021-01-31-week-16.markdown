@@ -12,7 +12,7 @@ This week, we made additional progress with improving the customisability of *As
 
 ## Rasa model training from *AskBob* build-time configuration JSON files
 
-The Python script mentioned in last week's blog post to translate *AskBob* "skills definition" build-time JSON configuration files into the necessary YAML files required to train and configure `Rasa` has been developed into a setup utility accessible on the command line through `python -m askbob --setup config.json`. It now allows users to train and output a new `Rasa` model that is immediately available for Ask Bob to use when it is next launched.
+The Python script mentioned in last week's blog post to translate *AskBob* "skills definition" build-time JSON configuration files into the necessary YAML files required to train and configure `Rasa` has been developed into a setup utility accessible on the command line through `python -m askbob --setup config.json`. It now allows users to train and output a new `Rasa` model that is immediately available for *AskBob* to use when it is next launched.
 
 We also continued experimenting with the format of the JSON configuration files to ensure it is flexible enough for us to be able to add additional features in the future beyond those we have already implemented while resolving compatibility issues between the voice assistant setup utility and our configuration generator web app.
 

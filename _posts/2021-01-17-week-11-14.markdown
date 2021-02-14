@@ -48,7 +48,7 @@ Getting a chance to present our work in front of so many people was a great expe
 
 ## Integration with other IBM FISE system engineering teams' projects
 
-In a client meeting with Dean this week, the prospect of integrating *AskBob* with the applications of two other IBM Franklin Immersive Social Engagement (FISE) systems engineering teams was raised.
+In a client meeting with Dr Dean Mohamedally this week, the prospect of integrating *AskBob* with the applications of two other IBM Franklin Immersive Social Engagement (FISE) systems engineering teams was raised.
 
 1. A video conferencing web app designed to bring people together, particularly older members of society; and
 2. the voice-enabled concierge Android app mentioned in a previous blog post.

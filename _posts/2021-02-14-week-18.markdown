@@ -1,0 +1,248 @@
+---
+layout: post
+title:  "Weeks 18: The bigger picture -- developing an ecosystem around *AskBob*"
+date:   2021-02-14 12:00:00 +0000
+categories: blog
+author:
+  - Jeremy Lo Ying Ping
+---
+
+This week, the prime focus on the "bigger picture" for *AskBob* in a wider context.
+
+## The wider AskBob ecosystem
+
+As a customisable voice assistant, it is important that *AskBob* can serve as a framework for other developers to both use and link into within their own projects. I have put together the following architectural diagram showing how *AskBob* is being used by the other IBM FISE teams (the video conferencing team and the concierge team) with a few hints as to how *AskBob* could be used in other settings and on other platforms in other scenarios (e.g. on Windows or with IoT devices).
+
+![AskBob - Wider Ecosystem Architecture](/assets/images/Week18/architecture.jpg)
+
+### FISE project integration status update
+
+On Monday, the three groups held a joint meeting with Prof John McNamara (IBM) and Dr Dean Mohamedally (UCL) to further discuss the integration of the teams' projects and ideas as to how the projects could develop.
+
+On Monday and Saturday, I held meetings with the concierge team to get to speed on the requirements of our projects and devise a more detailed strategy as to how their front-end Android app and back-end Java application could link in with *AskBob*. In theory, an Android app running on the same network as an *AskBob* server ought to be able to access the *AskBob* RESTful web API to handle queries. Furthermore, they should be able to use the *AskBob* plugin architecture to build a `concierge` plugin to handle the natural language processing tasks interpreting queiries and then retrieve data from their Java application via exposed RESTful HTTP endpoints giving access to concierge services.
+
+On Thursday, I held a meeting with the video conferencing team to discuss the wider ecosystem architecture and discuss progress at integrating *AskBob* into the video conferencing web app. I was very pleased to see *AskBob* handling queries asked within the video conferencing lobby with spoken responses. The main remaining tasks to integrate with the video conferencing project is to build a toggle between IBM Watson and *AskBob* for handling queries; and then to code an integration to allow the concierge team to implement a few additional custom features within the video conferencing front end, e.g. opening links.
+
+### AskBob on Windows
+
+The *AskBob* voice assistant has so far been mostly developed on Windows, even if it is also compatibile with Linux. Dr Dean Mohamedally suggested I investigate how a plugin could be written to simulate left clicks and other mouse manipulative movements in such a way that it could be used by existing projects at UCL involving computer vision and movement tracking on Windows using DirectX 12.
+
+Entertaining this idea, this diagram below shows how the voice assistant could potentially be used to hook into the Win32 API available to Python. This would allow a developer running *AskBob* locally to perhaps grab the window handler to switch between tasks and do other similar tasks hands free.
+
+![Simulating a left click using AskBob](/assets/images/Week18/click.jpg)
+
+Using `pyautogui`, a cross-platform library that wraps the Win32 API on Windows, I implemented an exemplar plugin that simulates a left click when the user says "please click".
+
+```json
+{
+  "plugin": "click",
+  "intents": [
+    {
+      "intent_id": "ask_click",
+      "examples": [
+        "click",
+        "click!",
+        "click please",
+        "please click",
+        "click the mouse"
+      ]
+    }
+  ],
+  "actions": [
+    "do_click"
+  ],
+  "skills": [
+    {
+      "description": "simulate a left click",
+      "intent": "ask_click",
+      "actions": [
+        "do_click"
+      ]
+    }
+  ]
+}
+```
+
+```python
+from typing import Any, Text, Dict, List
+from rasa_sdk import Action, Tracker
+from rasa_sdk.executor import CollectingDispatcher
+import askbob.plugin
+import pyautogui
+
+
+@askbob.plugin.action("click", "do_click")
+class ActionDoClick(Action):
+
+  def run(self, dispatcher: CollectingDispatcher,
+      tracker: Tracker,
+      domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+
+    pyautogui.click(*pyautogui.position())
+
+    return []
+
+```
+
+### Using improved DeepSpeech pretrained models
+
+I also got the opportunity to meet with a fourth year mathematical computation MEng student at UCL, Huang Jiaxing, to discuss his research into facilitating the improvement of `DeepSpeech` models.
+
+As both *AskBob* and his project both use the same `0.9.*` branch of `DeepSpeech` with the same `16000 Hz` sample rate, it would be possible for improved `DeepSpeech` models generated via his web app tool to be used to improve speech-to-text capabilities on *AskBob*. This would be very welcome, as it would make speech-to-text conversion on *AskBob* more robust and therefore more accurate, so that the voice assistant could be used in a wider range of (potentially noisy) settings.
+
+## Packaging AskBob to facilitate plugin development
+
+In order to facilitate plugin development and integration, *AskBob* has been packaged up for easier installation. *AskBob* and its dependencies may now be installed using the `setup.py` provided, which uses the ubiquitous `setuptools` library. This allows the `askbob` Python module to be made more accessible across a development environment.
+
+Moreover, it has allowed us to add *AskBob* to the Python Package Index, making it even easier to install. Check out [AskBob on PyPI](https://pypi.org/project/askbob/)! This means that *AskBob* releases may now be installed using `pip install askbob` on Python 3.7.
+
+After installing *AskBob* and creating a new directory, users may create their own *AskBob* builds by copying the plugins they want to run into a `plugins` folder, as well as a runtime `config.ini` and possible a build-time `config.json` into the root of the new directory, and then running the setup utility.
+
+An example such project may have the following directory structure:
+
+- `data/`
+- `plugins/plugin_a/`
+- `plugins/plugin_b/`
+- `plugins/plugin_c/`
+- `.gitignore`
+- `config.ini`
+- `default_config.json`
+- `Dockerfile`
+- `README.md`
+
+To help plugin developers, I have created an [AskBob plugin skeleton project](https://github.com/UCL-COMP0016-2020-Team-39/askbob-plugin-skeleton) repository on GitHub that anyone can fork to build their own plugin. By default, the skeleton project contains an implementation of a `puns` plugin that gives puns and dad jokes on demand.
+
+### Plugin 'marketplace' utility suggestion
+
+It would be interesting to investigate how to aggregate plugins made by different developers spread across public repositories for easier installation. In our Wednesday meeting, Dr Dean Mohamedally invited us to entertain the idea of how a 'marketplace' for *AskBob* skills could be built allowing users to browse installed skills in a visual tree-like manner by plugin and category, and then install additional skills from a URL.
+
+To lay the groundwork for something like this to be developed, I have added an endpoint on the *AskBob* server to expose information about installed plugins, their skills and how those skills can be triggered.
+
+```json
+{
+  "puns": [
+    {
+      "description": "tell a joke",
+      "examples": [
+        "tell me a joke",
+        "tell me a joke please",
+        "tell me a dad joke",
+        "tell me a dad joke please",
+        "tell me a pun",
+        "tell me a pun please",
+        "give me a joke",
+        "give me a joke please",
+        "give me a dad joke",
+        "give me a dad joke please",
+        "give me a pun",
+        "give me a pun please",
+        "could you please tell me a joke?",
+        "could you tell me a joke?",
+        "I'd love to hear a joke",
+        "I'd love to hear a dad joke",
+        "I'd love to hear a pun",
+        "give me your cheesiest joke",
+        "give me a cheesy joke",
+        "tell me a cheesy joke",
+        "tell me something funny"
+      ]
+    },
+    {
+      "description": "assure the user of the quality of dad jokes",
+      "examples": [
+        "Are you funny?",
+        "How funny are you?",
+        "How good are your puns?",
+        "How good are your dad jokes?",
+        "How cheesy are your jokes?"
+      ]
+    }
+  ],
+  "time": [
+    {
+      "description": "give the system time",
+      "examples": [
+        "What time is it?",
+        "What time is it right now?",
+        "What time is it now?",
+        "Tell me the time",
+        "Tell me the time right now",
+        "Tell me the time now"
+      ]
+    }
+  ],
+  "weather": [
+    {
+      "description": "give the weather at a given location",
+      "examples": [
+        "what is the weather in Manchester?",
+        "what's the weather in Leeds?",
+        "what's the temperature in London?",
+        "what's the temperature in Bloomsbury right now?",
+        "how hot is it in New York?",
+        "how cold is it in Oslo?"
+      ]
+    }
+  ],
+  "main": [
+    {
+      "description": "Greet the user",
+      "examples": [
+        "Hello",
+        "Hi",
+        "Hey",
+        "Howdy",
+        "Howdy, partner"
+      ]
+    },
+    {
+      "description": "Say goodbye to the user.",
+      "examples": [
+        "Goodbye",
+        "Good bye",
+        "Bye",
+        "Bye bye",
+        "See you",
+        "See you later",
+        "In a bit!",
+        "Catch you later!"
+      ]
+    }
+  ]
+}
+```
+
+## Documentation and codebase improvements
+
+The *AskBob* now uses `Sphinx` for its documentation, which may be built by running `make html` from within the `docs` folder. A more accessible version is available at the *AskBob* [readthedocs](https://ask-bob-askbob.readthedocs-hosted.com/en/latest/index.html) website; however, as the DeepSpeech-related dependencies are difficult to install, the full documentation is only available locally.
+
+The *AskBob* namespace has been reorganised to provide greater clarity. It now has the following module structure:
+
+- `askbob`
+    - `askbob.action`
+        - `askbob.action.responder`
+        - `askbob.action.server`
+    - `askbob.plugin`
+        - `askbob.plugin.config`
+    - `askbob.speech`
+        - `askbob.speech.listener`
+        - `askbob.speech.synthesiser`
+        - `askbob.speech.transcriber`
+    - `askbob.loop`
+    - `askbob.server`
+    - `askbob.setup`
+    - `askbob.util`
+
+Furthermore, a few version compatibility and stability issues across Windows, Linux and macOS have been resolved, so it should be easier to develop projects using *AskBob* on any of those platforms. Improved error handling and validation should make it easier to determine why a build might be failing to run and make finding the solutions a simpler task.
+
+The `Rasa` configuration *AskBob* uses by default has been made case-insensitive. The speech-to-text output of `DeepSpeech` is always lower case, so this change should hopefully improve accuracy slightly, as words will always match to the same word vector irrespective of case.
+
+## Configuration web app improvements
+
+This week also saw Ak make improvements to the validation of stories, names and descriptions on the configuration generator web app. An option to specify a plugin name, as well as list `spaCy` entities to be used by the model, was also added in the configuration web app to help plugin developers make their own plugin build-time configurations.
+
+## Next steps
+
+Among our next steps is to continue adding documentation and tests across the *AskBob* repositories: the main voice assistant repository; the `askbob-config` repository containing the configuration web app; and now the new starter plugin skeleton repository.
+
+We will also investigate other features that we might be able to add to the build-time configuration format over reading week and continue liaising with the other FISE teams to discuss their progress integrating with *AskBob*.

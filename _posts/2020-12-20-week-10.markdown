@@ -20,7 +20,7 @@ It has a natural language understanding (NLU) model that can be used to build co
 
 ## Client meeting
 
-We also held a client meeting with Dean where we took stock of the term's progress and considered some of the things we might want to focus on once we have a prototype voice assistant, including the following:
+We also held a client meeting with Dr Dean Mohamedally where we took stock of the term's progress and considered some of the things we might want to focus on once we have a prototype voice assistant, including the following:
 - testing *AskBob* on low-power devices, e.g. the Raspberry Pi
 - building plugins to integrate third-party APIs into *AskBob*
 - researching `Voiceflow` to either use it or build a similar intuitive interface to design voice commands
