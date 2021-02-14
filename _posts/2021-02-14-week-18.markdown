@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Weeks 18: The bigger picture -- developing an ecosystem around *AskBob*"
+title:  "Weeks 18: The bigger picture -- developing an ecosystem around AskBob"
 date:   2021-02-14 12:00:00 +0000
 categories: blog
 author:
