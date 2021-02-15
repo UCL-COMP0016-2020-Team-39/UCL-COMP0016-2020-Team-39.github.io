@@ -170,7 +170,13 @@ The logging output from the *AskBob* application was cleaned up and more beautif
 
 The natural language understanding classifier threshold was increased so to reduce unexpected responses when a query that is out of the depth of a particular *AskBob* installation is asked.
 
-Finally, Ak added additional validation to the configuration web app for intent and response IDs.
+## AskBob Config app
+
+This week, we added a stories and skills page to the AskBob config web app. The skills page allows users to create a skill, which is an intent paired with a list of responses. On the backend, this will be converted into a simple rule so that the voice assistant can provide a range of different responses to an intent. 
+
+The stories page allows users to add stories. A Story is a list of intents and responses. On the backend, this will be converted into a rasa story, which is used to direct the conversation. Example stories are used to make the conversation more natural and direct the flow of it.
+
+Next, we could implement the ability to add actions to stories as well as entities. The ability to add forms would also be useful for actions the need multiple pieces of data and.
 
 ## Client meetings
 
