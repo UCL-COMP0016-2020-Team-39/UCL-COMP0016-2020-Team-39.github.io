@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Weeks 18: The bigger picture - developing an ecosystem around AskBob"
+title:  "Week 18: The bigger picture - developing an ecosystem around AskBob"
 date:   2021-02-14 12:00:00 +0000
 categories: blog
 author:
@@ -241,13 +241,13 @@ The `Rasa` configuration *AskBob* uses by default has been made case-insensitive
 
 This week we changed how validation worked in the forms. Previously, the user had to worry about using unique names for intents and responses and unique descriptions for skills, and stories. Users also had to start responses with utter_ and couldn't add spaces or capital letters to the name fields of intents or responses.
 
-We felt these restrictions were a bit limiting and required the user to do a lot of unnecessary validation.  We originally had these rules as the name fields of intents and responses were used as ids, so they had to be unique and in a certain format. 
+We felt these restrictions were a bit limiting and required the user to do a lot of unnecessary validation.  We originally had these rules as the name fields of intents and responses were used as ids, so they had to be unique and in a certain format.
 
 Now, we have changed it so that the name field of intents and responses no longer have these restrictions, but just need to be alphanumeric (though spaces are allowed). Behind the scenes, a unique ID is made using these names and adding a unique string. This allows the user to not have to worry about validation, while still creating IDs that are human-readable. All response IDs have utter_ added to the beginning.
 
 Extra validation was added to the description field of skills and stories so that they could only include numbers, letters from the alphabet, and spaces.
 
-The form for adding stories was changed so stories can only be added if they started with an intent and didn't end with an intent. 
+The form for adding stories was changed so stories can only be added if they started with an intent and didn't end with an intent.
 
 Lastly, intents were changed so that they required at least two examples. This was because rasa required two examples minimum for intents for training purposes.
 

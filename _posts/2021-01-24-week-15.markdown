@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Weeks 15: Configuration web app progress"
+title:  "Week 15: Configuration web app progress"
 date:   2021-01-24 12:00:00 +0000
 categories: blog
 author:

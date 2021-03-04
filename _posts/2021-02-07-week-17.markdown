@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Weeks 17: Laying the foundations of a plugin system for AskBob"
+title:  "Week 17: Laying the foundations of a plugin system for AskBob"
 date:   2021-02-07 12:00:00 +0000
 categories: blog
 author:
@@ -172,7 +172,7 @@ The natural language understanding classifier threshold was increased so to redu
 
 ## AskBob Config app
 
-This week, we added a stories and skills page to the AskBob config web app. The skills page allows users to create a skill, which is an intent paired with a list of responses. On the backend, this will be converted into a simple rule so that the voice assistant can provide a range of different responses to an intent. 
+This week, we added a stories and skills page to the AskBob config web app. The skills page allows users to create a skill, which is an intent paired with a list of responses. On the backend, this will be converted into a simple rule so that the voice assistant can provide a range of different responses to an intent.
 
 The stories page allows users to add stories. A Story is a list of intents and responses. On the backend, this will be converted into a rasa story, which is used to direct the conversation. Example stories are used to make the conversation more natural and direct the flow of it.
 

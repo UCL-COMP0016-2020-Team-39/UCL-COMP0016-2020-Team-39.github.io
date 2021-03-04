@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Weeks 16: Training Rasa models from AskBob configurations"
+title:  "Week 16: Training Rasa models from AskBob configurations"
 date:   2021-01-31 12:00:00 +0000
 categories: blog
 author:
@@ -41,7 +41,7 @@ If an invalid request is given, then the server will return an error taking the 
 
 We also held another round of meetings with the other two IBM FISE teams this week to discuss our strategy for integrating our projects. The video conferencing group should be able now to host *AskBob* on their server and then access *AskBob* through their back end using the `/query` endpoint. They are already using IBM Watson for speech-to-text and text-to-speech, so should be able to send the transcribed speech directly to *AskBob* and use the JSON response to produce audible feedback for the end user.
 
-## AskBob Config
+## Configuration generator webapp
 
 We have also investigated a few libraries that would help us build drag-and-drop components for the AskBob Config app. We looked into Blockly, which would allow us to build a Scratch-like drag and drop editor, using blocks that could attach to each other. However, we found Blockly not necessarily suitable for what we needed. Blockly allowed for code generation and provided a customisable user interface with customisable coding blocks, but it was hard to integrate it into the React app. Also, a lot of the features it came with were not necessary for what we were building.
 
