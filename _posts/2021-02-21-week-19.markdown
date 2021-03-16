@@ -1,0 +1,74 @@
+---
+layout: post
+title:  "Week 19: Adding support for synonyms, regexes and lookups"
+date:   2021-02-21 12:00:00 +0000
+categories: blog
+author:
+  - Jeremy Lo Ying Ping
+  - Akhere Ihoeghinlan
+---
+
+This week, our main focus was extending the voice assistant and configuration web app following inter-team meetings with the concierge group to add support for `Rasa` synonyms, regexes and lookups.
+
+## Adding synonyms, regexes and lookups to the voice assistant
+
+Synonyms are used at the entity extraction stage in order to map entities to other values than the literal extracted text. As a result, when specifying intents, multiple examples containing each of the synonyms should be provided as well. As an example, the synonym 'card' could also map to 'credit card' as well as 'debit card'.
+
+Regular expression support is most useful when **AskBob** is being used in text-only mode via our server interface. It allows regular expressions to be defined and used for both intent classification as well as entity extraction. Within intent examples, regexes may be accessed using `[example](regex_name)` syntax, e.g. `my account number is [1234567891](accountnumber)`. Word boundaries may be captured using `\b`.
+
+Lookups provide a way to generate case-insensitive regular expression patterns more easily, e.g. those which match a list of countries.
+
+Within the voice assistant setup tool, the AskBob-to-Rasa configuration translator was updated so to add support for synonyms, lookups and regexes using the following format:
+
+```json
+{
+    "synonyms": [
+        {
+            "synonym_id": "card",
+            "examples": [
+                "credit card",
+                "debit card"
+            ]
+        }
+    ],
+    "lookups": [
+        {
+            "lookup_id": "country",
+            "examples": [
+                "United Kingdom",
+                "France",
+                "Germany",
+                "Spain",
+                "Italy"
+            ]
+        }
+    ],
+    "regexes": [
+        {
+            "regex_id": "accountnumber",
+            "examples": [
+                "[0-9]+",
+                "\\b[0-9]+\\b"
+            ]
+        }
+    ]
+}
+```
+
+## Configuration generator web app
+
+The **AskBob** configuration web app was refactored to minimise the amount of code written for the reducer. Previously, the `redux` code comprised several similar reducer files, which would update the state of the components according to different actions that the user could take. For example, there was a file for the `Intents` reducer that controlled how intents were added to, updated in, deleted from and retrieved from local storage. As these pieces of code were reasonably similar, a reducer factory was made that allowed similar reducers to be made more quickly, with the respective actions that the reducer controlled specified by a prefix string entered into the reducer factory function.
+
+This allowed quick development of a `Synonym`, `Regex`, and `Lookup` reducer, which all control actions. Now, users can specify synonyms, regexes, and lookups used in their intents on the configuration web app. The next step would be to add validation for the forms used to add these new fields, and to further develop forms.
+
+## Marketplace with Electron
+
+This week, we also explored how a 'marketplace' for **AskBob** plugins could potentially be developed using `Electron.js`. Given the current timescale and that it is only a client suggestion rather than a project requirement, we may not be able to complete the **AskBob** 'plugin marketplace', but we would nonetheless be interested in seeing how it could be done were we to have more time.
+
+The example below is an unstyled demonstration of a button invoking a system dialogue box to select a folder for **AskBob** to be built in.
+
+![AskBob Marketplace - Electron test](/assets/images/Week19/electron.jpg)
+
+## Next steps
+
+From here, we will continue integrating with the projects of both the concierge and the video conferencing team and testing **AskBob**.

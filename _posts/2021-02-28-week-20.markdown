@@ -1,0 +1,67 @@
+---
+layout: post
+title:  "Week 20: Refactoring and testing"
+date:   2021-02-28 12:00:00 +0000
+categories: blog
+author:
+  - Jeremy Lo Ying Ping
+  - Akhere Ihoeghinlan
+---
+
+This week, we focussed on refactoring and testing code for both **AskBob** and the configuration generator web app.
+
+## Speech module refactoring
+
+In our integration meetings, the video conferencing team requested the ability to upload audio files of speech to **AskBob** in order to produce a response. This new requirement guided the restructuring of the **AskBob** speech module.
+
+First, the utterance service -- responsible for collecting audio frames comprising spoken utterances -- was wholly decoupled from the transcriber: the utterance service dependency in the transcriber is now addressed via constructor injection at runtime.
+
+From here, the utterance service, which previously was responsible for compiling audio frames from both live (via the microphone) and prerecorded (via `.wav` files) sources, was split into three:
+- `askbob.speech.listener.mic.MicUtteranceService` - audio from the user's microphone
+- `askbob.speech.listener.file.FileUtteranceService` - audio from a `.wav` file
+- `askbob.speech.listener.listener.UtteranceService` - a base class with methods shared by both the `MicUtteranceService` and the `FileUtteranceService` (most importantly, the `utterances()` generator method
+
+## /voicequery endpoint
+
+The refactoring of the **AskBob** speech module allowed us to add a `/voicequery` RESTful API endpoint to which 16000Hz single-channel RIFF `.wav` files may be uploaded. If valid, **AskBob** transcribes the first complete line of speech contained within `.wav` file and produces a JSON response in the normal fashion.
+
+This has allowed the video conferencing team to use **AskBob** to take over speech-to-text from **IBM Watson** to provide a more private querying experience for their users.
+
+## Slots
+
+Rasa slots -- a form of 'short-term memory' for the voice assistant -- were implemented this week as well. They may be declared using the following format in JSON configuration files.
+
+```json
+{
+  "slots" : [
+    {
+      "slot_id" : "slot_id",
+      "type": "text",
+      "influence_conversation": false
+    }
+  ]
+}
+```
+
+There is support for the following slot types:
+- `text`
+- `bool`
+- `categorical` (also adds the `values` option, a list of acceptable values for the type)
+- `float` (also adds `min_value` and `max_value` options, which are `0.0` and `1.1` by default)
+- `list`
+- `any`
+
+Additional information on the usage of slots may be found at the [Rasa documentation](https://rasa.com/docs/rasa/domain/#slots).
+
+
+## Config web app stuff
+
+We also looked into testing using `jest`: a JavaScript testing framework. It also allows us to test whether the correct items are rendered on the screen and whether the correct nodes are present in the DOM.
+
+Jest will be useful in writing tests to ensure that the application is working correctly in the majority of cases. Also, it will allow us to be sure that the reducer and actions work as expected.
+
+User actions, such as entering form data, can be emulated as well so Jest allows us to model the whole user experience.
+
+Also, a form factory has been made so that duplicate code is not needed. Instead, similar forms (the intent, synonym, regex, lookup, and response form) can be made using the same base component but taking in different props.
+
+Next week, tests will be written for reducer.
