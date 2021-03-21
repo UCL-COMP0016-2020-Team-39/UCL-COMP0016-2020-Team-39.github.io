@@ -36,8 +36,9 @@ The following is a list of 'must have', 'should have', 'could have' and 'would h
 - **a skills viewer web-app** to allow administrators to view the index of installed **AskBob** skills in a more visual manner
 - **compatibility with other APIs over several protocols** via third-party plugins, e.g. Win32 on Windows, IFTTT in the home, any other in-home network with a centralised hub, Bluetooth, etc
 - **access to open-source services** via the concierge team's web service (e.g. the ability to search for something, look up the weather, read something out loud, etc) when running locally (or perhaps in the FISE video conferencing group's 'lounge')
+- **a drag-and-drop-style interface** to implement simple voice assistant skills in the configuration generator web app
 
 ## Would have
-- **full chatbot functionality** wherein users could maintain a long conversation with the voice assistant
-- **drag-and-drop-style interface** to implement new voice assistant skills
 - **a plugins marketplace** whereby system administrators can download and install additional plugins (via a URL) in new **AskBob** builds
+- **an advanced MIT Scratch-style draft-and-drop interface** to implement complex voice assistant skills in the configuration web app that would otherwise have to be implemented in Python code, e.g. RESTful API calls
+- **support for wearable devices**, such as smart watches
