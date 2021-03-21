@@ -22,7 +22,7 @@ The following is a list of 'must have', 'should have', 'could have' and 'would h
     - Where there is internet access, this may only be used for interfacing with external RESTful APIs containing no personally identifiable information to ensure compliancy with data protection law
 - **a plugin system** allowing system administrators to install additional **AskBob** 'skills' as plugins
     - **AskBob** should primarily serve as a framework for other developers' plugins that tailor the voice assistant to their own specific use cases.
-- **an accessible index of voice skills** currently installed and available for use through the plugin system
+- **an accessible index of voice assistant skills** currently installed and available for use through the plugin system
 
 ## Should have
 - **a configuration generator responsive web-app** that allows administrators to more easily generate plugin configuration files required for the creation of new **AskBob** skills plugins
