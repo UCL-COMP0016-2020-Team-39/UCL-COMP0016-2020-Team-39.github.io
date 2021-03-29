@@ -18,7 +18,7 @@ We then started to examine the human-computer interaction considerations for our
 
 In order to identify and then prioritise our user requirements, we interviewed both our clients as well as friends representing each of the primary use case environments: care homes, the NHS, retail and childcare settings. We chose to conduct recorded, semi-structured interviews as they offer us greater flexibility to encourage our interviewees to elaborate on crucial details as compared to alternative methods, such as online surveys.
 
-We based our interviews on a unified team framework, interview template format and tools, allowing us to work more efficiently and effectively by sharing a consistent common language for synthesising and comparing our research findings. We intend to regularly perform user requirement sprints to continually clarify, validate and update our model of users’ needs.
+We based our interviews on a unified team framework, interview template format and tools, allowing us to work more efficiently and effectively by sharing a consistent common language for collating and comparing our research findings. We intend to regularly perform user requirement sprints to continually clarify, validate and update our model of users’ needs.
 
 ![Sample interview questions](/assets/images/HCI/SampleInterviewQuestions.jpg)
 
