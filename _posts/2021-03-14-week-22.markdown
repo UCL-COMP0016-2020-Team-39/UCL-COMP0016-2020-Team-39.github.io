@@ -1,0 +1,40 @@
+---
+layout: post
+title:  "Week 22: FISE ecosystem integration progress"
+date:   2021-03-14 12:00:00 +0000
+categories: blog
+author:
+  - Jeremy Lo Ying Ping
+---
+
+## AskBob voice assistant
+
+This week, our primary focus was on integrating **AskBob** into the FISE Concierge and FISE Lounge projects of teams 25 and 38, respectively. Throughout the week, Jeremy had several meetings with both teams to resolve integration issues (including the use of the new `/voicequery` endpoint) and ensure integration progress remained on track.
+
+### GET /query
+
+As an alternative to sending a `POST` request to `/query`, we have also made `/query` available via GET requests. This was functionality requested by the FISE Concierge group.
+
+The following is an example of such a query:
+
+```
+/query?sender=jezz&message=tell%20me%20a%20joke
+```
+
+```json
+{
+   "query": "tell me a joke",
+   "messages": [
+      {
+         "text": "One joke, coming right up!"
+      },
+      {
+         "text": "Doctor you've got you help me, I'm addicted to twitter. Doctor: I don't follow you."
+      }
+   ]
+}
+```
+
+### Skills viewer web app
+
+This week, we also added support for ingesting skills data from the **AskBob** `/skills` endpoint, thereby implementing the remaining functionality of the skills viewer. We also started writing unit tests for the web app using the Jest testing framework, as we had been doing for the configuration generator web app.

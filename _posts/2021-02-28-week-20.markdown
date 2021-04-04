@@ -54,14 +54,12 @@ There is support for the following slot types:
 Additional information on the usage of slots may be found at the [Rasa documentation](https://rasa.com/docs/rasa/domain/#slots).
 
 
-## Config web app stuff
+## Configuration generator web app
 
-We also looked into testing using `jest`: a JavaScript testing framework. It also allows us to test whether the correct items are rendered on the screen and whether the correct nodes are present in the DOM.
+We also looked into testing using `Jest`: a JavaScript testing framework. We have been using it to test whether the correct items are correctly rendered on the screen and determine whether only valid nodes are present in the DOM.
 
-Jest will be useful in writing tests to ensure that the application is working correctly in the majority of cases. Also, it will allow us to be sure that the reducer and actions work as expected.
+Unit testing using Jest will be useful to ensure that the configuration generator web app is working as expected, especially the reducer and actions. Furthermore, emulating user actions, such as entering form data, will allow us to model the whole user experience as part of our testing strategy.
 
-User actions, such as entering form data, can be emulated as well so Jest allows us to model the whole user experience.
-
-Also, a form factory has been made so that duplicate code is not needed. Instead, similar forms (the intent, synonym, regex, lookup, and response form) can be made using the same base component but taking in different props.
+We have also written a form factory to reduce code reduplication. Instead, similar forms -- namely, the intent, synonym, regex, lookup, and response forms -- can be made using the same base component that takes in different props as arguments.
 
 Next week, tests will be written for reducer.
