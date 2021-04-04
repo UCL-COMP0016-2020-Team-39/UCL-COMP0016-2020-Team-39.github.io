@@ -1,0 +1,93 @@
+---
+layout: post
+title:  "Week 21: Supporting voice queries over HTTP & developing the skills viewer"
+date:   2021-03-07 12:00:00 +0000
+categories: blog
+author:
+  - Jeremy Lo Ying Ping
+  - Akhere Ihoeghinlan
+---
+
+## AskBob voice assistant
+
+## New /voicequery endpoint
+
+We have added an additional `/voicequery` endpoint to enable users to upload 16kHz single-channel RIFF WAV files encoded as `multipart/form-data` to **AskBob** for interpretation as an alternative to sending transcribed text to `/query`.
+
+`POST` requests to `/voicequery` must specify a `sender`, just as with textual queries, and also upload the raw binary data of a valid WAV file under the `speech` key.
+
+A form that could upload a valid WAV file to **AskBob** for a `/query`-like response is the following:
+
+```html
+<form action="http://localhost:8000/voicequery" method="post" enctype="multipart/form-data">
+    <input type="text" name="sender" value="askbob"><br>
+    <input type="file" name="speech"><br>
+    <input type="submit">
+</form>
+```
+
+This functionality is particularly important to the FISE Lounge team, who will be using this endpoint to allow the **AskBob** speech transcriber based on Mozilla DeepSpeech to take over speech transcription from IBM Watson when 'cloud features' are disabled from their dashboard.
+
+To enable voice functionality, the **AskBob** web server must also be started with the additional `-v` flag, as in the following:
+
+```bash
+$ python -m askbob -s -v
+```
+
+Furthermore, a Mozilla DeepSpeech model and external scorer must be properly configured to be used by **AskBob** with the additional `voice` dependencies installed for the new voice-enabled server to function properly.
+
+### CORS support
+
+We have also added support for cross-origin resource sharing to **AskBob**, should anyone wish to configure this directly in the application.
+
+We have provided the following option in the runtime `config.ini` configuration file to set the output of the `Access-Control-Allow-Origin` header used to enable CORS:
+
+```ini
+[Server]
+host = 0.0.0.0
+port = 8000
+cors_origins = *
+```
+
+This is important for deployment; it would allow **AskBob** to be installed and run on a web server accessed with a domain name (potentially over a local or public network depending on how users wish to deploy **AskBob**). It is also important to allow the skills viewer to access data from the `/skills` endpoint.
+
+### Updated /skills endpoint format
+
+The JSON response format of the `/skills` endpoint was updated to be of the following format:
+
+```json
+{
+   "plugins": [
+      {
+         "plugin":"plugin_name",
+         "description":"Human-readable description.",
+         "author":"Author name.",
+         "icon":"Icon URL (optional)"
+      }
+   ],
+   "skills": [
+      {
+         "plugin": "plugin_name",
+         "category": "miscellaneous",
+         "description": "Plugin description.",
+         "examples": [
+            "Intent example 1",
+            "Intent example 2",
+            "Intent example 3"
+         ]
+      }
+   ]
+}
+```
+
+This allows us to provide further information to our skills viewer web app.
+
+### Improved testing
+
+We also added addtional tests for the **AskBob** responder, transcriber, plugin decorator and interactive loop components to ensure the application is functioning as expected. While writing unit tests, we also made minor refactorings and stability improvements.
+
+## Skills viewer web app
+
+Also this week, we outlined the basic structure of the skills viewer web app, which will allow users to visually inspect the skills installed on an **AskBob** server (be it voice-enabled or voiceless) sorted by plugin name or category. It will show intent examples that users could query the voice assistant with to access that particular 'skill'. It will also view per-plugin icons, should they be specified by plugin authors.
+
+Similarly to the configuration generator web app, it is being built with React as a front-end framework and Material-UI for styling. Currently, an example set of skills data is hard-coded into the app; however, next week, we will move to allow users to provide an endpoint URL from which the skills viewer will read skills.
